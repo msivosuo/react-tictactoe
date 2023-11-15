@@ -43,36 +43,31 @@ function TictactoeGame() {
 
     function CheckWinner(mark) {
         // check all the horizontal lines, e.g. [1][1] [2][1] [3][1]
-        for (var i = 0; i < numberOfRows; i++) {
-            for(var j = 0; j < numberOfRows; j++) {
-                if (board[i][j] === mark && j === (numberOfRows -1)) {
-                    return true;
-                }
-                if (board[i][j] === mark) {
-                    continue;
-                }
-                else  {
-                    break;
-                }
+        const rows = board.slice().map(row => row.slice());
+        let result = false;
+        rows.forEach(row => {
+            if (!row.some(cell => cell !== mark)) {
+                result = true;
+                return;
             }
+        });     
+        if(result) {
+            return true;
         }
-        // check all the vertical lines, e.g. [1][0] [1][1] [1][2]
-        for (i = 0; i < numberOfRows; i++) {
-            for(j = 0; j < numberOfRows; j++) {
-                if (board[j][i] === mark && j === (numberOfRows -1) ) {
-                    return true;
-                }
-                if (board[j][i] === mark) {
-                    continue;
-                }
-                else  {
-                    break;
-                }
+        //check all the vertical lines, e.g. [1][0] [1][1] [1][2]
+        const columns = board[0].map((_, index) => board.map(row => row[index]));
+        columns.forEach(row => {
+            if (!row.some(cell => cell !== mark)) {
+                result = true;
+                return;
             }
-        }
+        });
+        if(result) {
+            return true;
+        }   
         // check diagonal lines, e.g. [0][0] [1][1] [2][2]
         if(board[0][0] === mark && mark === board[numberOfRows - 1][numberOfRows - 1]) {
-            for(i = 1; i < numberOfRows - 1; i++) {
+            for(let i = 1; i < numberOfRows - 1; i++) {
                 if (board[i][i] === mark && i === numberOfRows -2) {
                     return true;
                 }
@@ -86,7 +81,7 @@ function TictactoeGame() {
         }
         // check diagonal lines, e.g. [0][3] [1][2] [2][1] [3][0]
         if(board[0][numberOfRows - 1] === mark && mark === board[numberOfRows - 1][0]) {
-            for(i = 1; i < numberOfRows - 1; i++) {
+            for(let i = 1; i < numberOfRows - 1; i++) {
                 if (board[i][numberOfRows -1 - i] === mark && i === numberOfRows -2) {
                   return true;
                 }
