@@ -1,2 +1,2 @@
 # React TicTacToe
-Simple TicTacToe Game in React
+Simple TicTacToe game in React.
