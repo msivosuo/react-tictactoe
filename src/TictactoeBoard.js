@@ -24,6 +24,13 @@
 
 import styles from "./tictactoe.module.css";
 
+function TictactoeSquare(props) {
+    const {rowIndex, cellIndex, cell, HandleClick} = props;
+    return (
+        <div onClick={() => HandleClick(rowIndex, cellIndex)} key={props.cellIndex} className={styles.cell}>{cell}</div>
+    );
+}
+
 function TictactoeBoard(props) {
     const { board, HandleClick } = props;
     return (
@@ -31,7 +38,7 @@ function TictactoeBoard(props) {
         {board.map((row, rowIndex) => (
             <div key={rowIndex} className={styles.row}>
                 {row.map((cell, cellIndex) => (
-                    <div onClick={() => HandleClick(rowIndex, cellIndex)} key={cellIndex} className={styles.cell}>{cell}</div>
+                    <TictactoeSquare HandleClick={HandleClick} rowIndex={rowIndex} cellIndex={cellIndex} cell={cell} />
                 ))}
             </div>
         ))}

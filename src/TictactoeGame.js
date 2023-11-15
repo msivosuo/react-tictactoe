@@ -130,8 +130,8 @@ function TictactoeGame() {
     else {
         return (
             <>
-              <TictactoeBoard HandleClick={HandleClick} board={board}/>
-              <TictactoeResetButton Reset={Reset}/>
+                <TictactoeBoard HandleClick={HandleClick} board={board}/>
+                <TictactoeResetButton Reset={Reset}/>
             </>
         );
     }
