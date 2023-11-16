@@ -44,57 +44,36 @@ function TictactoeGame() {
     function CheckWinner(mark) {
         // check all the horizontal lines, e.g. [1][1] [2][1] [3][1]
         const rows = board.slice().map(row => row.slice());
-        let result = false;
-        rows.forEach(row => {
-            if (!row.some(cell => cell !== mark)) {
-                result = true;
-                return;
+        for(let i = 0; i < numberOfRows; i++) {
+            if (!rows.at(i).some(cell => cell !== mark)) {
+                return true;
             }
-        });     
-        if(result) {
-            return true;
+        }     
+        // check diagonal lines, e.g. [0][0] [1][1] [2][2]
+        for(let i = 0; i < numberOfRows; i++) {
+            if(rows.at(i).at(i) !== mark) {
+                break;
+            }
+            if(rows.at(i).at(numberOfRows - 1) === mark && i === numberOfRows -1) {
+                return true;
+            }
         }
         //check all the vertical lines, e.g. [1][0] [1][1] [1][2]
         const columns = board[0].map((_, index) => board.map(row => row[index]));
-        columns.forEach(row => {
-            if (!row.some(cell => cell !== mark)) {
-                result = true;
-                return;
+        for(let i = 0; i < numberOfRows; i++) {
+            if (!columns.at(i).some(cell => cell !== mark)) {
+                return true;
             }
-        });
-        if(result) {
-            return true;
         }   
-        // check diagonal lines, e.g. [0][0] [1][1] [2][2]
-        if(board[0][0] === mark && mark === board[numberOfRows - 1][numberOfRows - 1]) {
-            for(let i = 1; i < numberOfRows - 1; i++) {
-                if (board[i][i] === mark && i === numberOfRows -2) {
-                    return true;
-                }
-                else if(board[i][i] === mark) {
-                    continue;
-                } 
-                else {
-                    break;
-                }
-            }
-        }
         // check diagonal lines, e.g. [0][3] [1][2] [2][1] [3][0]
-        if(board[0][numberOfRows - 1] === mark && mark === board[numberOfRows - 1][0]) {
-            for(let i = 1; i < numberOfRows - 1; i++) {
-                if (board[i][numberOfRows -1 - i] === mark && i === numberOfRows -2) {
-                  return true;
-                }
-                else if(board[i][numberOfRows -1 - i] === mark) {
-                  continue;
-                } 
-                else { 
-                    break;
-                }
-          
+        for(let i = 0; i < numberOfRows; i++) {
+            if(columns.at(i).at(numberOfRows - 1 - i) !== mark) {
+                break;
             }
-        }
-        return false;
+            if(columns.at(i).at(numberOfRows - 1 - i) === mark && i === numberOfRows -1) {
+                return true;
+            }
+        } 
     };
 
     function HandleClick(x, y) {
@@ -108,7 +87,7 @@ function TictactoeGame() {
         if(CheckWinner(xMark) ) {
             setWinner(xMark);
         }
-        else if( CheckWinner(oMark)) {
+        else if(CheckWinner(oMark)) {
             setWinner(oMark);
         } 
     };
