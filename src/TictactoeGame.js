@@ -73,7 +73,8 @@ function TictactoeGame() {
             if(columns.at(i).at(numberOfRows - 1 - i) === mark && i === numberOfRows -1) {
                 return true;
             }
-        } 
+        }
+        return false; 
     };
 
     function HandleClick(x, y) {
