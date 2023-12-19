@@ -1,5 +1,5 @@
 /* 
- * TictactoeResetButton.js
+ * TictactoeResetButton.test.js
  *
  * Copyright (c) 2023 Matti-Pekka Sivosuo
  *
@@ -23,12 +23,12 @@
  */
 
  import React from "react";
-
-function TictactoeResetButton(props) {
-    const Reset = props.Reset;
-    return (
-        <button onClick={Reset}>Reset Game</button>
-    );
-}
-
-export default TictactoeResetButton;
+ import { render } from "@testing-library/react";
+ import TictactoeResetButton from "../src/TictactoeResetButton.js";
+ 
+ test("Reset button should exist", () => {
+   const mockReset = jest.fn();
+   const { getByText } = render(<TictactoeResetButton Reset={mockReset} />);
+   const button = getByText("Reset Game");
+   expect(button).toEqual(expect.anything());
+ });
